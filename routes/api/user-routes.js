@@ -17,7 +17,7 @@ router.get('/', (req,res) => {
 // GET /api/users/1
 router.get('/:id', (req, res) => {
     User.findOne({
-        attributes: { exclude: ['password'] },
+       // attributes: { exclude: ['password'] },
         where: {
             id: req.params.id
         }
@@ -54,6 +54,7 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
     //if req.body has exact key/value pairs to match model you can just use req.body
     User.update(req.body, {
+        individualHooks: true,
         where: {
             id: req.params.id
         }
