@@ -6,6 +6,7 @@ router.get('/', (req, res) => {
     console.log('==========================');
     Post.findAll({
         attributes: ['id', 'post_url', 'title', 'created_at'],
+        order: [['created_at', 'DESC']],
         include: [
             {
                 model: User,
@@ -46,7 +47,8 @@ router.get('/:id', (req,res) => {
         res.status(500).json(err);
     });
 });
-    
+ 
+// create a post   
 router.post('/', (req,res) => {    
     Post.create({
         title: req.body.title,
@@ -85,6 +87,25 @@ router.put('/:id', (req, res) => {
         });
   });
 
+// delete a post
+router.delete('/:id', (req,res) => {
+    Post.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(dbPostData => {
+        if (!dbPostData) {
+            res.status(404).json({ message: 'No post found with this id' });
+            return;
+        }
+        res.json(dbPostData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
 // //get all posts from a user
 // router.get('/users/:userName', (req,res) => {
 //     User.findOne({
