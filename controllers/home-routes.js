@@ -3,7 +3,10 @@ const sequelize = require('sequelize');
 
 const router = require('express').Router();
 
+// route to display homepage == get all posts > 
+// then res.render (homepage, second argument passes in information for template engine
 router.get('/', (req, res) => {
+    console.log(req.session);
    Post.findAll({
        attributes: [
            'id',
@@ -37,6 +40,15 @@ router.get('/', (req, res) => {
        console.log(err);
        res.status(500).json(err);
    });
+});
+
+// route to display login page -- no 2nd arg for res.render because no  template info needed 
+router.get('/login', (req,res) => {
+    if (req.session.loggedIn) {
+        res.redirect('/');
+        return;
+    }
+    res.render('login');
 });
 
 module.exports = router;
