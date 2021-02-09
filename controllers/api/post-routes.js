@@ -147,16 +147,4 @@ router.delete('/:id', (req,res) => {
     });
 });
 
-
-
-// //get all posts from a user
-// router.get('/users/:userName', (req,res) => {
-//     User.findOne({
-//         where: {
-//             username: req.params.userName
-//         },
-//         include: [Post]
-//     })
-// })
-
 module.exports = router;
