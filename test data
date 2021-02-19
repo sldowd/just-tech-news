@@ -33,4 +33,19 @@
     "title": "Man eats 40 hot dogs",
     "post_url": "http://www.hotdognews.com",
     "user_id": 1
+},
+{
+    "title": "Happy Birthday Jesus",
+    "post_url": "http://www.google.com",
+    "user_id": 1
+},
+{
+    "title": "Hail Satan",
+    "post_url": "http://www.666.com",
+    "user_id": 1
+},
+{
+    "title": "Birds aren't real",
+    "post_url": "http://www.birdsarentreal.com",
+    "user_id": 1
 }
