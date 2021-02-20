@@ -11,6 +11,8 @@
     </div>
 </article>
 
+<!-- conditionally render the form if req.session.loggedIn = true -->
+<!--{{#if loggedIn }}-->
 <form class="comment-form">
     <div>
         <textarea name="comment-body"></textarea>
@@ -21,6 +23,7 @@
         <button type="button" class="upvote-btn">upvote</button>
     </div>
 </form>
+<!--{{/if}}-->
 
 <div class="comments">
     {{#each post.comments}}
@@ -28,9 +31,14 @@
         <div class="meta">
             {{user.username}} on {{created_at}}
         </div>
+        <div class="text">
+            {{comment_text}}
+        </div>
     {{/each}}    
     </section>
 </div>
 
+<!--{{#if loggedIn}}-->
 <script src="/javascript/comment.js"></script>
 <script src="/javascript/upvote.js"></script>
+<!--{{/if}}-->

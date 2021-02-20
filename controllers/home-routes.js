@@ -34,7 +34,10 @@ router.get('/', (req, res) => {
        console.log(dbPostData[0])
        const posts = dbPostData.map(post => post.get({ plain: true }));
        // pass a single post object into the homepage template
-       res.render('homepage', { posts });
+       res.render('homepage', { 
+         posts,
+         loggedIn: req.session.loggedIn
+       });
    })
    .catch(err => {
        console.log(err);
@@ -52,7 +55,7 @@ router.get('/login', (req,res) => {
 });
 
 // route to display single-post page
-router.get('/post/:id', (req, res) => {
+router.get('/post/:id', (req,res) => {
   Post.findOne({
     where: {
       id: req.params.id
@@ -79,22 +82,24 @@ router.get('/post/:id', (req, res) => {
       }
     ]
   })
-    .then(dbPostData => {
-      if (!dbPostData) {
-        res.status(404).json({ message: 'No post found with this id' });
-        return;
-      }
+  .then(dbPostData => {
+    if (!dbPostData) {
+      res.status(404).json({ message: 'No post found with this id' });
+      return;
+    }
 
-      // serialize the data
-      const post = dbPostData.get({ plain: true });
-
-      // pass data to template
-      res.render('single-post', { post });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
+    // serialize the data -- retrieve 'plain object'
+    const post = dbPostData.get({ plain: true });
+    // pass data to template
+    res.render('single-post', {
+      post,
+      loggedIn: req.session.loggedIn
     });
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  })
 });
 
 module.exports = router;
